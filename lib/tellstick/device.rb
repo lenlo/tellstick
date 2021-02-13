@@ -36,6 +36,10 @@ module TellStick
       RawAPI.supported_methods.key cmd
     end
 
+    def last_value
+      read_string RawAPI.last_sent_value(id)
+    end
+
     # def dim_value
     #   value = read_string RawAPI.last_sent_value(id)
     #   value == '' ? nil : value
@@ -51,6 +55,14 @@ module TellStick
 
     def turn_off
       RawAPI.turn_off(id)
+    end
+
+    def turn(on_off)
+      on_off ? turn_on : turn_off
+    end
+
+    def on?
+      return last_command == :turn_on
     end
 
     def sound_bell
